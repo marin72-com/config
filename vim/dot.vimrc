@@ -14,6 +14,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 
 call neobundle#end()
 
@@ -45,7 +47,7 @@ set listchars=tab:>\ ,extends:<
 "行番号を表示する
 set number
 "シフト移動幅
-set shiftwidth=4
+set shiftwidth=2
 "閉じ括弧が入力されたとき、対応する括弧を表示する
 set showmatch
 "新しい行を作ったときに高度な自動インデントを行う
@@ -53,7 +55,7 @@ set smartindent
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
 "ファイル内の <Tab> が対応する空白の数
-set tabstop=4
+set tabstop=2
 set whichwrap=b,s,h,l,<,>,[,]
 "検索をファイルの先頭へループしない
 set nowrapscan
@@ -65,6 +67,9 @@ set fileencodings=utf-8,iso-2022-jp,ucs2le,ucs-2,cp932,euc-jp
 
 set t_Co=256
 colorscheme hybrid
+
+"tabs
+nnoremap <silent> gr :tabprev<CR>
 
 " python実行
 function! s:Exec()
@@ -80,6 +85,14 @@ imap <C-X> <C-[>
 imap <C-F> <C-[>
 imap <C-E> <C-Y>,
 
+nmap <silent> <Space>e :NERDTreeToggle<CR>
+
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeShowHidden=1
+
 " python
 filetype plugin on
 autocmd FileType python setl autoindent
@@ -87,10 +100,16 @@ autocmd FileType python setl expandtab smartindent cinwords=if,elif,else,for,whi
 autocmd FileType python setl  tabstop=4 shiftwidth=4 softtabstop=4
 
 "ruby 
-autocmd FileType ruby setl  tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType ruby setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+au BufNewFile,BufRead *.erb set expandtab tabstop=2 shiftwidth=2
 
-"HTML 
+"HTML/CSS/JavaScript/scss/coffeescript
 autocmd FileType html setl  tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType css setl  tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setl  tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType scss setl  tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType coffeescript setl  tabstop=2 shiftwidth=2 softtabstop=2
+
 
 augroup MyXML
 	autocmd!
