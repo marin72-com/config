@@ -14,7 +14,8 @@ alias c++11="g++ -std=c++11"
 # そのた
 alias datahide="defaults write com.apple.finder AppleShowAllFiles FALSE"
 alias datashow="defaults write com.apple.finder AppleShowAllFiles TRUE"
-
+alias bundle="nocorrect bundle"
+alias ls='ls -G'
 
 #export的なの
 export PATH=$HOME/Library/Haskell/bin:$PATH
@@ -32,8 +33,8 @@ colors
 
 setopt prompt_subst
 #PROMPT="%B%{$fg[green]%}%m:%{$fg[cyan]%}(℃_°) $ %{$reset_color%}%b"
-#PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}|✽╹◡╹) $ %{$reset_color%}%b"
-PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}ヾ(๑╹◡╹%)ﾉ'|%{$fg[red]%}ヾ(｡>﹏<｡%)ﾉﾞ)%{$reset_color%}%b "
+#PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}(⑅´◡`♥) $ %{$reset_color%}%b"
+PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}(´灬｀%)|%{$fg[red]%}(・c_・))%{$reset_color%}%b "
 RPROMPT="[%~]"
 
 setopt nolistbeep

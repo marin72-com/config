@@ -12,7 +12,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
@@ -64,9 +67,14 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,ucs2le,ucs-2,cp932,euc-jp
+" 縦線の表示
+set cursorcolumn
+" ハイライトの表示
+set hlsearch
 
 set t_Co=256
-colorscheme hybrid
+let g:hybrid_use_iTerm_colors = 1
+colorscheme jellybeans
 
 "tabs
 nnoremap <silent> gr :tabprev<CR>
@@ -77,7 +85,7 @@ function! s:Exec()
 :endfunction         
 command! Exec call <SID>Exec() 
 map <silent> <C-P> :call <SID>Exec()<CR>
-nmap bb :ls<CR>:buf 
+nmap ls :ls<CR>:buf 
 map gb :bn<CR>
 map gB :bp<CR>
 map gw <C-W><C-W>
