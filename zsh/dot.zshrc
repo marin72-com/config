@@ -4,18 +4,11 @@ alias pic="cd ~/Pictures"
 alias pub="cd ~/Public"
 alias desk="cd ~/Desktop"
 alias down="cd ~/Downloads"
-alias tc="cd ~/Public/ICT/TopCoder/Code"
-alias pku="cd ~/Dropbox/programming/PKU"
-alias aoj="cd ~/Dropbox/programming/AOJ"
-alias pro="cd ~/Dropbox/school/programming"
 alias c++11="g++ -std=c++11"
-
 
 # そのた
 alias datahide="defaults write com.apple.finder AppleShowAllFiles FALSE"
 alias datashow="defaults write com.apple.finder AppleShowAllFiles TRUE"
-alias bundle="nocorrect bundle"
-alias ls='ls -G'
 
 #export的なの
 export PATH=$HOME/Library/Haskell/bin:$PATH
@@ -24,8 +17,15 @@ export PATH=/usr/local/bin:/usr/bin:$PATH
 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 export LANG=ja_JP.UTF-8
 
-# おすすめ
+# エイリアス
+alias ls='ls -G'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+alias cl='clear'
 
+alias curl='curl --proxy http://proxy.uec.ac.jp:8080'
 
 # Prompt
 autoload -U colors;colors
@@ -33,16 +33,24 @@ colors
 
 setopt prompt_subst
 #PROMPT="%B%{$fg[green]%}%m:%{$fg[cyan]%}(℃_°) $ %{$reset_color%}%b"
-#PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}(⑅´◡`♥) $ %{$reset_color%}%b"
-PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}(´灬｀%)|%{$fg[red]%}(・c_・))%{$reset_color%}%b "
+#PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}|✽╹◡╹) $ %{$reset_color%}%b"
+PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}ヾ(๑╹◡╹%)ﾉ'|%{$fg[red]%}ヾ(｡>﹏<｡%)ﾉﾞ)%{$reset_color%}%b "
 RPROMPT="[%~]"
 
-setopt nolistbeep
+# uec
+export HTTP_PROXY="http://proxy.uec.ac.jp:8080"
+export HTTPS_PROXY="http://proxy.uec.ac.jp:8080"
+export ALL_PROXY=$http_proxy
+git config --global http.proxy http://proxy.uec.ac.jp:8080 
+git config --global https.proxy http://proxy.uec.ac.jp:8080
+git config --global url."https://".insteadOf git://
+export PATH=/usr/local/texlive/2015/bin:$PATH
+export PATH=/usr/local/texlive/2015/bin/universal-darwin:$PATH
 
 # refiute からもらった
 # 履歴
-HISTSIZE=50000 #histリストのサイズ
-SAVEHIST=50000 #histファイルのサイズ
+HISTSIZE=5000 #histリストのサイズ
+SAVEHIST=5000 #histファイルのサイズ
 HISTFILE=$HOME/.zsh_history #historyファイルの保存場所
 setopt append_history #ヒストリファイルに追加
 setopt extended_history #時間と実行時間も一緒に記録
@@ -124,3 +132,54 @@ export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"
 
 # LISP
 export PATH="/Applications/Racket v6.1.1/bin:$PATH"
+
+# ----- PROMPT -----
+## PROMPT
+PROMPT=$'[%*] → '
+## RPROMPT
+RPROMPT=$'`branch-status-check` %~' # %~はpwd
+setopt prompt_subst #表示毎にPROMPTで設定されている文字列を評価する
+
+# {{{ methods for RPROMPT
+# fg[color]表記と$reset_colorを使いたい
+# @see https://wiki.archlinux.org/index.php/zsh
+autoload -U colors; colors
+function branch-status-check {
+    local prefix branchname suffix
+        # .gitの中だから除外
+        if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+            return
+        fi
+        branchname=`get-branch-name`
+        # ブランチ名が無いので除外
+        if [[ -z $branchname ]]; then
+            return
+        fi
+        prefix=`get-branch-status` #色だけ返ってくる
+        suffix='%{'${reset_color}'%}'
+        echo ${prefix}${branchname}${suffix}
+}
+function get-branch-name {
+    # gitディレクトリじゃない場合のエラーは捨てます
+    echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
+}
+function get-branch-status {
+    local res color
+        output=`git status --short 2> /dev/null`
+        if [ -z "$output" ]; then
+            res=':' # status Clean
+            color='%{'${fg[green]}'%}'
+        elif [[ $output =~ "[\n]?\?\? " ]]; then
+            res='?:' # Untracked
+            color='%{'${fg[yellow]}'%}'
+        elif [[ $output =~ "[\n]? M " ]]; then
+            res='M:' # Modified
+            color='%{'${fg[red]}'%}'
+        else
+            res='A:' # Added to commit
+            color='%{'${fg[cyan]}'%}'
+        fi
+        # echo ${color}${res}'%{'${reset_color}'%}'
+        echo ${color} # 色だけ返す
+}
+eval "$(rbenv init -)"
