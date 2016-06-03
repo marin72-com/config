@@ -79,6 +79,10 @@ colorscheme jellybeans
 "tabs
 nnoremap <silent> gr :tabprev<CR>
 
+"US keybord
+noremap ; :
+noremap : ;
+
 " python実行
 function! s:Exec()
     exe "!" . &ft . " %"        
