@@ -31,7 +31,7 @@ setopt prompt_subst
 #PROMPT="%B%{$fg[green]%}%m:%{$fg[cyan]%}(℃_°) $ %{$reset_color%}%b"
 #PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}(⑅´◡`♥) $ %{$reset_color%}%b"
 #PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}(´灬｀%)|%{$fg[red]%}(・c_・))%{$reset_color%}%b "
-PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}ヾ(๑╹◡╹%)ﾉ'|%{$fg[red]%}ヾ(｡>﹏<｡%)ﾉﾞ)%{$reset_color%}%b "
+PROMPT="%B%{$fg[green]%}pndcat %(?|%{$fg[cyan]%}ヾ(๑╹◡╹%)ﾉ'|%{$fg[red]%}ヾ(｡>﹏<｡%)ﾉﾞ)%{$reset_color%}%b "
 RPROMPT="[%~]"
 
 # 補完候補表示時にビープ音を鳴らさない
@@ -74,8 +74,6 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} #色をつける
 zstyle ':completion:*:sudo:*' \
 	command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
-source ~/.zsh/incr*.zsh
-
 #一発解答
 ex(){
 	if [ -f $1 ] ; then
@@ -100,25 +98,3 @@ ex(){
 		echo "'$1' is not a valid file!"
 			fi
 }
-
-# pip系
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
-
-# opencv for python
-#export PYTHONPATH="/usr/local/lib/python2.7/site-packages/:$PYTHONPATH"
-
-# android
-#export ANDROID_NDK_ROOT=/Applications/android-ndk-r10b
-#	export PATH=$PATH:$ANDROID_NDK_ROOT
-#	export NDK_PROJECT_PATH=$PATH:$ANDROID_NDK_ROOT
-export ANDROID_NDK_ROOT=/Applications/android-ndk-r10d
-	export PATH=$PATH:$ANDROID_NDK_ROOT
-	export NDK_PROJECT_PATH=$PATH:$ANDROID_NDK_ROOT
-
-
-export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"
-
-# LISP
-export PATH="/Applications/Racket v6.1.1/bin:$PATH"
