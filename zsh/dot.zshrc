@@ -1,31 +1,27 @@
-#移動系
-alias wall="cd ~/Pictures/wall"
-alias pic="cd ~/Pictures"
-alias pub="cd ~/Public"
+# 移動系
 alias desk="cd ~/Desktop"
 alias down="cd ~/Downloads"
-alias tc="cd ~/Public/ICT/TopCoder/Code"
-alias pku="cd ~/Dropbox/programming/PKU"
-alias aoj="cd ~/Dropbox/programming/AOJ"
-alias pro="cd ~/Dropbox/school/programming"
 alias c++11="g++ -std=c++11"
-
 
 # そのた
 alias datahide="defaults write com.apple.finder AppleShowAllFiles FALSE"
 alias datashow="defaults write com.apple.finder AppleShowAllFiles TRUE"
 alias bundle="nocorrect bundle"
-alias ls='ls -G'
 
-#export的なの
+# export的なの
 export PATH=$HOME/Library/Haskell/bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:/usr/bin:$PATH
 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
 export LANG=ja_JP.UTF-8
 
-# おすすめ
-
+# エイリアス
+alias ls='ls -G'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+alias cl='clear'
 
 # Prompt
 autoload -U colors;colors
@@ -34,9 +30,11 @@ colors
 setopt prompt_subst
 #PROMPT="%B%{$fg[green]%}%m:%{$fg[cyan]%}(℃_°) $ %{$reset_color%}%b"
 #PROMPT="%B%{$fg[green]%}%n:%{$fg[cyan]%}(⑅´◡`♥) $ %{$reset_color%}%b"
-PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}(´灬｀%)|%{$fg[red]%}(・c_・))%{$reset_color%}%b "
+#PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}(´灬｀%)|%{$fg[red]%}(・c_・))%{$reset_color%}%b "
+PROMPT="%B%{$fg[green]%}%n %(?|%{$fg[cyan]%}ヾ(๑╹◡╹%)ﾉ'|%{$fg[red]%}ヾ(｡>﹏<｡%)ﾉﾞ)%{$reset_color%}%b "
 RPROMPT="[%~]"
 
+# 補完候補表示時にビープ音を鳴らさない
 setopt nolistbeep
 
 # refiute からもらった
